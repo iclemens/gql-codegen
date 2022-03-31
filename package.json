@@ -1,0 +1,33 @@
+{
+    "name": "@iclemens/gql-codegen",
+    "version": "0.9.0",
+    "description": "Generate GraphQL resolver definitions for express-graphql.",
+    "main": "index.js",
+    "directories": {},
+    "bin": {
+        "gql-codegen": "./dist/main.js"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.com/iclemens/gql-codegen.git"
+    },
+    "author": "Ivar Clemens <post@ivarclemens.nl>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://gitlab.com/iclemens/gql-codegen/issues"
+    },
+    "homepage": "https://gitlab.com/iclemens/gql-codegen#readme",
+    "devDependencies": {
+        "@types/node": "^17.0.23",
+        "typescript": "^4.5.5",
+        "ts-node": "^10.4.0"
+    },
+    "dependencies": {
+        "commander": "^9.1.0",
+        "prettier": "^2.6.1",
+        "graphql": "^16.3.0"
+    }
+}

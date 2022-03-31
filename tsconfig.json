@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "sourceRoot": "./src",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "target": "es6",
+        "lib": ["es2019"]
+    },
+    "exclude": [
+        "**.raw.ts",
+        "dist/**",
+        "out/**"
+    ]
+}
