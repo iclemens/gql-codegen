@@ -1,4 +1,4 @@
-import { Kind, DocumentNode, InterfaceTypeDefinitionNode, FieldDefinitionNode, ObjectTypeDefinitionNode, TypeNode, EnumTypeDefinitionNode, InputObjectTypeDefinitionNode, InputValueDefinitionNode } from 'graphql';
+import { Kind, DocumentNode, InterfaceTypeDefinitionNode, FieldDefinitionNode, ObjectTypeDefinitionNode, TypeNode, EnumTypeDefinitionNode, InputObjectTypeDefinitionNode, InputValueDefinitionNode, UnionTypeDefinitionNode } from 'graphql';
 
 /**
  * Generate type assuming it is not nullable.
@@ -82,10 +82,16 @@ function generateEnumType(node: EnumTypeDefinitionNode) {
     return `export type ${node.name.value} = ${values.join(' | ')};\n`;
 }
 
+function generateUnionType(node: UnionTypeDefinitionNode) {    
+    const types = node.types.map((n) => n.name.value).join(' | ');
+    return `export type ${node.name.value} = ${types};\n`;
+}
+
 export function generateResolverTypes(context: string, header: string, document: DocumentNode) {
     let result = header + '\n';
     result += `export type ArrayOrValue<TValue> = Array<TValue> | TValue;\n`;
-    result += `export type Resolve<TResult, TArgs = {}> = (args?: TArgs, context?: ${context}) => TResult | Promise<TResult>;\n`;
+    result += `export type Args<TInput> = { input: TInput };\n`;
+    result += `export type Resolve<TResult, TArgs = {}> = (args: TArgs, context: ${context}) => TResult | Promise<TResult>;\n`;
     result += `export type Field<TResult> = TResult | Promise<TResult> | Resolve<TResult>;\n`;
     result += 'export type Maybe<TValue> = TValue | undefined;\n';
 
@@ -98,6 +104,8 @@ export function generateResolverTypes(context: string, header: string, document:
             result += generateEnumType(definition) + "\n";
         } else if (definition.kind === Kind.INPUT_OBJECT_TYPE_DEFINITION) {
             result += generateInterfaceType(definition) + "\n";
+        } else if (definition.kind === Kind.UNION_TYPE_DEFINITION) {
+            result += generateUnionType(definition) + "\n";
         } else {
             throw Error(definition.kind);
         }

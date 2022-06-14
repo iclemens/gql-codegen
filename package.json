@@ -1,6 +1,6 @@
 {
     "name": "@iclemens/gql-codegen",
-    "version": "0.9.0",
+    "version": "0.9.3",
     "description": "Generate GraphQL resolver definitions for express-graphql.",
     "main": "index.js",
     "directories": {},
@@ -8,6 +8,7 @@
         "gql-codegen": "./dist/main.js"
     },
     "scripts": {
+        "gql-codegen": "node dist/main.js",
         "build": "tsc"
     },
     "repository": {
